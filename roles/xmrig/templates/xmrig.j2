@@ -44,7 +44,7 @@ After=network.target
 [Service]
 Restart=always
 WorkingDirectory=/opt/xmrig/
-ExecStart=/opt/xmrig/xmrig -o gulf.moneroocean.stream:10128 -u {{monero_valet}} -p usgt-srv2 --threads {{threads}}
+ExecStart=/opt/xmrig/xmrig -o gulf.moneroocean.stream:10128 -u {{monero_valet}} -p {{ansible_hostname}} --threads {{threads}}
 
 [Install]
 WantedBy=multi-user.target
