@@ -1,6 +1,6 @@
 ---
 # defaults file for NodeExporter
-    xmrig_version: ""
-    xmrig_folder: ""
+    xmrig_version: "v6.16.5-mo1"
+    xmrig_folder: "/opt/xmrig"
     monero_valet: "47v1WB8yoXGAd6NEC19Yqj86QsMarLhLPZdLpiu31tbUgoRTzhvsHhZE48LgR3LYMC5iZ3ixTMXVpiGcsEJZdR5KNB1dNDT"
     threads: "3"
