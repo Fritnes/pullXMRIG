@@ -27,7 +27,7 @@
 
   - name: Generate update script
     template:
-       src: node_exporter.j2
+       src: xmrig.j2
        dest: "/opt/xmrig/xmrig.sh"
        mode: a+x
     notify: Install/Update xmrig
