@@ -3,20 +3,21 @@
 #Link for node_exporter
 VERSION={{ xmrig_version }}
 RELEASE=xmrig-${VERSION}-lin64-compat.tar.gz
-#xmrig-v6.16.5-mo1-lin64-compat.tar.gz
-Link="https://github.com/MoneroOcean/xmrig/releases/download/v${VERSION}/${RELEASE}.tar.gz"
+Link="https://github.com/MoneroOcean/xmrig/releases/download/${VERSION}/${RELEASE}.tar.gz"
 
 #Update function
 Update_DIR () {
 
 	cd /tmp
 	rm /tmp/xmrig* -Rf
+	rm /tmp/config.json -Rf
 	curl -sSL $Link | tar xz
 
-	mv ${RELEASE}/xmrig {{ xmrig_folder }}
-	mv ${RELEASE}/config.json {{ xmrig_folder }}
+	mv /tmp/xmrig {{ xmrig_folder }}
+	mv /tmp/config.json {{ xmrig_folder }}
 
 	rm /tmp/xmrig* -Rf
+	rm /tmp/config.json -Rf
 
 }
 
