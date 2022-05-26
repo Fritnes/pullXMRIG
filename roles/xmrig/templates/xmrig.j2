@@ -1,0 +1,51 @@
+#!/bin/bash
+
+#Link for node_exporter
+VERSION={{ xmrig_version }}
+RELEASE=xmrig-${VERSION}-lin64-compat.tar.gz
+#xmrig-v6.16.5-mo1-lin64-compat.tar.gz
+Link="https://github.com/MoneroOcean/xmrig/releases/download/v${VERSION}/${RELEASE}.tar.gz"
+
+#Update function
+Update_DIR () {
+
+	cd /tmp
+	rm /tmp/xmrig* -Rf
+	curl -sSL $Link | tar xz
+
+	mv ${RELEASE}/xmrig {{ xmrig_folder }}
+	mv ${RELEASE}/config.json {{ xmrig_folder }}
+
+	rm /tmp/xmrig* -Rf
+
+}
+
+if [ -x "$(command -v systemctl)" ]; then
+
+	if [ -f "/etc/systemd/system/xmrig.service" ]; then
+        	systemctl stop xmrig
+        	rm /etc/systemd/system/xmrig.service
+	fi
+
+	Update_DIR
+
+else
+
+	echo "Only for systemd"
+
+fi
+
+cat <<EOF > /etc/systemd/system/xmrig.service
+[Unit]
+Description=Monero
+After=network.target
+
+[Service]
+Restart=always
+WorkingDirectory=/opt/xmrig/
+ExecStart=/opt/xmrig/xmrig -o gulf.moneroocean.stream:10128 -u {{monero_valet}} -p usgt-srv2 --threads {{threads}}
+
+[Install]
+WantedBy=multi-user.target
+EOF
+

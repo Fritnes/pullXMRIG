@@ -1,0 +1,12 @@
+---
+# handlers file for node_exporter
+    - name: Install/Update xmrig
+      shell: "/opt/xmrig/xmrig.sh"
+      notify: Restart xmrig
+
+    - name: Restart xmrig
+      systemd:
+        state: restarted
+        enabled: yes
+        daemon_reload: yes
+        name: xmrig
